@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Dapp</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="navbar">
+      <div class="left-section">
+          <center>
+              <img src="logo-tr.png" style="height: 60px; width: 140px; justify-content:center;"/>
+          </center>
+      </div>
+      <div class="right-section">
+          <button id="connectButton">Batch II</button>
+      </div>
+  </div>
+    <div class="container">
+        <h1 style="color: white;">Todo List</h1>
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Add new todo...">
+            <button type="submit">Add</button>
+        </form>
+        <h3 style="color: orange; margin-top:15px; margin-bottom: 20px;">Status</h3>
+        <ul id="todo-list"></ul>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script>
+        // Solidity contract ABI
+        const contractABI = [
+                              	{
+                              		"inputs": [],
+                              		"stateMutability": "nonpayable",
+                              		"type": "constructor"
+                              	},
+                              	{
+                              		"anonymous": false,
+                              		"inputs": [
+                              			{
+                              				"indexed": false,
+                              				"internalType": "uint256",
+                              				"name": "id",
+                              				"type": "uint256"
+                              			},
+                              			{
+                              				"indexed": false,
+                              				"internalType": "string",
+                              				"name": "content",
+                              				"type": "string"
+                              			},
+                              			{
+                              				"indexed": false,
+                              				"internalType": "bool",
+                              				"name": "completed",
+                              				"type": "bool"
+                              			}
+                              		],
+                              		"name": "TodoCreated",
+                              		"type": "event"
+                              	},
+                              	{
+                              		"inputs": [
+                              			{
+                              				"internalType": "string",
+                              				"name": "_content",
+                              				"type": "string"
+                              			}
+                              		],
+                              		"name": "addTodo",
+                              		"outputs": [],
+                              		"stateMutability": "payable",
+                              		"type": "function"
+                              	},
+                              	{
+                              		"inputs": [],
+                              		"name": "todoCount",
+                              		"outputs": [
+                              			{
+                              				"internalType": "uint256",
+                              				"name": "",
+                              				"type": "uint256"
+                              			}
+                              		],
+                              		"stateMutability": "view",
+                              		"type": "function"
+                              	},
+                              	{
+                              		"inputs": [
+                              			{
+                              				"internalType": "uint256",
+                              				"name": "",
+                              				"type": "uint256"
+                              			}
+                              		],
+                              		"name": "todos",
+                              		"outputs": [
+                              			{
+                              				"internalType": "uint256",
+                              				"name": "id",
+                              				"type": "uint256"
+                              			},
+                              			{
+                              				"internalType": "string",
+                              				"name": "content",
+                              				"type": "string"
+                              			},
+                              			{
+                              				"internalType": "bool",
+                              				"name": "completed",
+                              				"type": "bool"
+                              			}
+                              		],
+                              		"stateMutability": "view",
+                              		"type": "function"
+                              	},
+                              	{
+                              		"inputs": [
+                              			{
+                              				"internalType": "uint256",
+                              				"name": "_id",
+                              				"type": "uint256"
+                              			}
+                              		],
+                              		"name": "toggleCompleted",
+                              		"outputs": [],
+                              		"stateMutability": "nonpayable",
+                              		"type": "function"
+                              	}
+        ];
+
+        // Address of deployed contract
+        const contractAddress = '0x5e17b14ADd6c386305A32928F985b29bbA34Eff5';
+
+        // Web3.js initialization
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // Handle the case where the user doesn't have web3. You might show them a message
+            // prompting them to install Metamask or provide an option to connect via another provider.
+            console.log('No web3? You should consider trying MetaMask!');
+        }
+
+        // Initialize the contract
+        const todoContract = new web3.eth.Contract(contractABI, contractAddress);
+
+        // Add your script logic here...
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
